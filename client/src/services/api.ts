@@ -15,6 +15,11 @@ export const createTask = async (task: Omit<Task, "_id">): Promise<Task> => {
   return response.data;
 };
 
+export const getTaskStats = async () => {
+  const response = await axios.get(`${API_URL}/tasks/stats`);
+  return response.data;
+};
+
 // Update a task
 export const updateTask = async (
   id: string,

@@ -5,14 +5,16 @@ import {
   getTaskById,
   updateTask,
   deleteTask,
+  getTaskStats
 } from "../controllers/taskController";
 
 const router = express.Router();
 
-router.post("/tasks", createTask); // Create a task
-router.get("/tasks", getTasks); // Get all tasks
-router.get("/tasks/:id", getTaskById); // Get a task by ID
-router.put("/tasks/:id", updateTask); // Update a task
-router.delete("/tasks/:id", deleteTask); // Delete a task
+router.get("/tasks/stats", getTaskStats);
+router.post("/tasks", createTask); 
+router.get("/tasks", getTasks); 
+router.get("/tasks/:id", getTaskById); 
+router.put("/tasks/:id", updateTask); 
+router.delete("/tasks/:id", deleteTask); 
 
 export default router;

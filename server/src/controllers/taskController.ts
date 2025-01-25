@@ -1,6 +1,31 @@
 import { Request, Response } from "express";
 import Task from "../models/Task";
 
+// Task type definition
+interface ITask {
+    _id: string;
+    title: string;
+    startTime: Date;
+    endTime: Date;
+    priority: number;
+    status: "pending" | "finished";
+  }
+  
+  // Pending task statistics type
+  interface PendingStats {
+    totalLapsed: number;
+    totalBalance: number;
+  }
+  
+  // Overall task statistics type
+  interface TaskStats {
+    totalTasks: number;
+    completedPercent: number;
+    pendingPercent: number;
+    groupedPendingStats: Record<number, PendingStats>;
+    avgCompletionTime: number;
+  }
+
 // Create a task
 export const createTask = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -104,3 +129,67 @@ export const deleteTask = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+export const getTaskStats = async (req: Request, res: Response): Promise<void> => {
+    try {
+      // Fetch tasks with minimal memory overhead
+      const tasks: ITask[] = await Task.find({}, { title: 0, __v: 0 }); // Exclude unnecessary fields
+
+      // Initialize counters
+      const totalTasks = tasks.length;
+      let completedTasks = 0;
+      let totalActualCompletionTime = 0;
+  
+      const pendingStats: Record<number, PendingStats> = {}; // Grouped by priority
+      const currentTime = new Date();
+  
+      // Iterate through tasks
+      tasks.forEach((task) => {
+        if (task.status === "finished") {
+          completedTasks++;
+          const startTime = new Date(task.startTime);
+          const endTime = new Date(task.endTime);
+          totalActualCompletionTime += (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60); // Convert to hours
+        } else if (task.status === "pending") {
+          const startTime = new Date(task.startTime);
+          const endTime = new Date(task.endTime);
+  
+          const timeLapsed =
+            currentTime > startTime ? (currentTime.getTime() - startTime.getTime()) / (1000 * 60 * 60) : 0; // In hours
+          const balanceTime =
+            currentTime < endTime ? (endTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60) : 0; // In hours
+  
+          // Group by priority
+          if (!pendingStats[task.priority]) {
+            pendingStats[task.priority] = { totalLapsed: 0, totalBalance: 0 };
+          }
+          pendingStats[task.priority].totalLapsed += timeLapsed;
+          pendingStats[task.priority].totalBalance += balanceTime;
+        }
+      });
+  
+      // Calculate percentages
+      const pendingTasks = totalTasks - completedTasks;
+      const completedPercent = ((completedTasks / totalTasks) * 100).toFixed(2) || "0";
+      const pendingPercent = ((pendingTasks / totalTasks) * 100).toFixed(2) || "0";
+  
+      // Calculate average completion time
+      const avgCompletionTime = totalActualCompletionTime / completedTasks || 0;
+  
+      // Prepare response data
+      const stats: TaskStats = {
+        totalTasks,
+        completedPercent: parseFloat(completedPercent),
+        pendingPercent: parseFloat(pendingPercent),
+        groupedPendingStats: pendingStats,
+        avgCompletionTime: parseFloat(avgCompletionTime.toFixed(2)),
+      };
+  
+      res.status(200).json(stats);
+    } catch (error) {
+      console.error("Error fetching task stats:", error);
+      res.status(500).json({ message: "Failed to fetch task statistics" });
+    }
+  };
+
+
