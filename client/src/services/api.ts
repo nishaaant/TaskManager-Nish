@@ -1,22 +1,30 @@
 import axios from "axios";
+import { Task } from "../types/Task";
 
-const BASE_URL = "http://localhost:5000/tasks";
+const API_URL = "http://localhost:5000/api";
 
-export const fetchTasks = async () => {
-  const response = await axios.get(BASE_URL);
+// Fetch all tasks
+export const fetchTasks = async (): Promise<Task[]> => {
+  const response = await axios.get(`${API_URL}/tasks`);
   return response.data;
 };
 
-export const createTask = async (task: any) => {
-  const response = await axios.post(BASE_URL, task);
+// Create a new task
+export const createTask = async (task: Omit<Task, "_id">): Promise<Task> => {
+  const response = await axios.post(`${API_URL}/tasks`, task);
   return response.data;
 };
 
-export const updateTask = async (id: string, task: any) => {
-  const response = await axios.put(`${BASE_URL}/${id}`, task);
+// Update a task
+export const updateTask = async (
+  id: string,
+  updatedTask: Partial<Task>
+): Promise<Task> => {
+  const response = await axios.put(`${API_URL}/tasks/${id}`, updatedTask);
   return response.data;
 };
 
-export const deleteTask = async (id: string) => {
-  await axios.delete(`${BASE_URL}/${id}`);
+// Delete a task
+export const deleteTask = async (id: string): Promise<void> => {
+  await axios.delete(`${API_URL}/tasks/${id}`);
 };
