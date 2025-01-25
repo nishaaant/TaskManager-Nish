@@ -12,7 +12,7 @@ const TaskForm: React.FC<{ onTaskAdded: () => void }> = ({ onTaskAdded }) => {
     e.preventDefault();
 
     await createTask({ title, startTime, endTime, priority, status });
-    onTaskAdded(); // Refresh the task list
+    onTaskAdded();
     setTitle("");
     setStartTime("");
     setEndTime("");

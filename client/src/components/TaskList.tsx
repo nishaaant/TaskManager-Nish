@@ -12,7 +12,7 @@ const TaskList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     await deleteTask(id);
-    fetchAllTasks(); // Refresh the task list
+    fetchAllTasks();
   };
 
   useEffect(() => {
