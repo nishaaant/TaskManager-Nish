@@ -1,49 +1,18 @@
 import express from "express";
-import Task from "../models/Task";
+import {
+  createTask,
+  getTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+} from "../controllers/taskController";
 
 const router = express.Router();
 
-// Get all tasks
-router.get("/", async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.json(tasks);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch tasks" });
-  }
-});
-
-// Create a task
-router.post("/", async (req, res) => {
-  try {
-    const task = new Task(req.body);
-    await task.save();
-    res.status(201).json(task);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to create task" });
-  }
-});
-
-// Update a task
-router.put("/:id", async (req, res) => {
-  try {
-    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(updatedTask);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to update task" });
-  }
-});
-
-// Delete a task
-router.delete("/:id", async (req, res) => {
-  try {
-    await Task.findByIdAndDelete(req.params.id);
-    res.status(204).send();
-  } catch (error) {
-    res.status(500).json({ error: "Failed to delete task" });
-  }
-});
+router.post("/tasks", createTask); // Create a task
+router.get("/tasks", getTasks); // Get all tasks
+router.get("/tasks/:id", getTaskById); // Get a task by ID
+router.put("/tasks/:id", updateTask); // Update a task
+router.delete("/tasks/:id", deleteTask); // Delete a task
 
 export default router;
