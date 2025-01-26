@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
 import { getTaskStats } from "../services/api";
 
 const Dashboard: React.FC = () => {
   const [stats, setStats] = useState<any>(null);
-  const navigate = useNavigate(); // React Router navigation hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {

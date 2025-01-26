@@ -1,8 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-// Define the IUser interface with the correct _id type
 export interface IUser extends Document {
-  _id: string; // Explicitly define _id as a string
+  _id: string;
   email: string;
   password: string;
 }

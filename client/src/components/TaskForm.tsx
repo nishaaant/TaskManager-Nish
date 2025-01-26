@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { createTask } from "../services/api";
 
-const TaskForm: React.FC<{ onTaskAdded: () => void }> = ({ onTaskAdded }) => {
+interface TaskFormProps {
+  taskId?: string;
+  onTaskAdded: () => void;
+}
+
+const TaskForm: React.FC<TaskFormProps> = ({ taskId, onTaskAdded }) => {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");

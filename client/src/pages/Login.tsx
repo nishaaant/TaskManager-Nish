@@ -16,7 +16,7 @@ const Login: React.FC = () => {
       const response = await loginUser({ email, password });
       const { user, token } = response;
       auth.login(user, token);
-      navigate("/dashboard"); // Redirect to dashboard on successful login
+      navigate("/home"); // Redirect to dashboard on successful login
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     }

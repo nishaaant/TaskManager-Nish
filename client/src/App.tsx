@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./hooks/useAuth";
 import HomePage from "./pages/HomePage";
 import TaskList from "./components/TaskList";
@@ -21,15 +20,12 @@ const App: React.FC = () => {
 
 	return (
 		<Router>
-				{/* <Route path="/" element={auth.token ? <Navigate to="/dashboard" /> : <Login />} />
+      <Routes>
+				<Route path="/" element={auth.token ? <Navigate to="/home" /> : <Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} /> */}
-				<Routes>
+        <Route path="/login" element={<Login />} />
 					{/* Home Page */}
 					<Route path="/home" element={<HomePage />} />
-
-					{/* Dashboard Page */}
-					<Route path="/dashboard" element={<Dashboard />} />
 
 					{/* Task List Page */}
 					<Route path="/tasks" element={<TaskList />} />

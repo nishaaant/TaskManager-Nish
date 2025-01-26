@@ -1,14 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TaskForm from "../components/TaskForm";
-import TaskList from "../components/TaskList";
 import Dashboard from "./Dashboard";
 
 const HomePage: React.FC = () => {
-  const handleTaskAdded = () => {
-    // Refresh TaskList after adding a task
-    window.location.reload();
-  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -25,9 +19,7 @@ const HomePage: React.FC = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <div>
-        {/* Task Form Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <Dashboard />
         </div>
