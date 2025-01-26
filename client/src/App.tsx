@@ -21,14 +21,14 @@ const App: React.FC = () => {
 	return (
 		<Router>
 			<Routes>
-				<Route
+				{/* <Route
 					path="/"
 					element={auth.token ? <Navigate to="/home" /> : <Login />}
-				/>
+				/> */}
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
 				{/* Home Page */}
-				<Route path="/home" element={<HomePage />} />
+				<Route path="/" element={<HomePage />} />
 
 				{/* Task List Page */}
 				<Route path="/tasks" element={<TaskList />} />
