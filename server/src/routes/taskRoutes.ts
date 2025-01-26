@@ -7,9 +7,11 @@ import {
   deleteTask,
   getTaskStats
 } from "../controllers/taskController";
+import { authenticateUser } from "../utils/authUtils";
 
 const router = express.Router();
 
+// router.use(authenticateUser);
 router.get("/tasks/stats", getTaskStats);
 router.post("/tasks", createTask); 
 router.get("/tasks", getTasks); 

@@ -140,7 +140,7 @@ export const getTaskStats = async (req: Request, res: Response) => {
       },
     ]);
 
-    const pendingTimeByPriority = pendingTasksByPriority.map((item) => ({
+    const groupedPendingStats = pendingTasksByPriority.map((item) => ({
       priority: item._id,
       timeLapsed: item.totalTimeLapsed / (1000 * 60 * 60),
       balanceTime: item.totalBalanceTime / (1000 * 60 * 60),
@@ -163,7 +163,7 @@ export const getTaskStats = async (req: Request, res: Response) => {
       totalTasks,
       completedPercent,
       pendingPercent,
-      pendingTimeByPriority,
+      groupedPendingStats,
       avgCompletionTime,
     });
   } catch (error) {

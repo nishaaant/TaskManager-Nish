@@ -34,3 +34,13 @@ export const fetchTaskStats = async (): Promise<any> => {
   const response = await axios.get(`${API_URL}/tasks/stats`);
   return response.data;
 };
+
+export const loginUser = async (credentials: { email: string; password: string }) => {
+  const response = await axios.post(`${API_URL}/login`, credentials);
+  return response.data;
+};
+
+export const registerUser = async (credentials: { email: string; password: string }) => {
+  const response = await axios.post(`${API_URL}/register`, credentials);
+  return response.data;
+};
