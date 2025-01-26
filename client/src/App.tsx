@@ -14,9 +14,9 @@ import TaskList from "./components/TaskList";
 const App: React.FC = () => {
 	const auth = useAuth();
 
-	const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
-		return auth.token ? children : <Navigate to="/login" />;
-	};
+	// const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
+	// 	return auth.token ? children : <Navigate to="/login" />;
+	// };
 
 	return (
 		<Router>

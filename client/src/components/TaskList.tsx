@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchTasks, deleteTask, updateTask } from "../services/api";
+import { fetchTasks, deleteTask } from "../services/api";
 import { Task } from "../types/Task";
 import TaskForm from "./TaskForm";
 
@@ -28,15 +28,15 @@ const TaskList: React.FC = () => {
     }
   };
 
-  const handleEdit = async (id: string, updatedTask: Partial<Task>): Promise<void> => {
-    try {
-      await updateTask(id, updatedTask);
-      fetchAllTasks();
-      setShowEditForm(null);
-    } catch (error) {
-      console.error("Error updating task:", error);
-    }
-  };
+  // const handleEdit = async (id: string, updatedTask: Partial<Task>): Promise<void> => {
+  //   try {
+  //     await updateTask(id, updatedTask);
+  //     fetchAllTasks();
+  //     setShowEditForm(null);
+  //   } catch (error) {
+  //     console.error("Error updating task:", error);
+  //   }
+  // };
   
 
   useEffect(() => {

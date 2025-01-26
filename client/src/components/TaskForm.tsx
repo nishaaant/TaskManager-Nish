@@ -6,7 +6,7 @@ interface TaskFormProps {
   onTaskAdded: () => void;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ taskId, onTaskAdded }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ onTaskAdded }) => {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
