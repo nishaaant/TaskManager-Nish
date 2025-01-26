@@ -20,16 +20,19 @@ const App: React.FC = () => {
 
 	return (
 		<Router>
-      <Routes>
-				<Route path="/" element={auth.token ? <Navigate to="/home" /> : <Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-					{/* Home Page */}
-					<Route path="/home" element={<HomePage />} />
+			<Routes>
+				<Route
+					path="/"
+					element={auth.token ? <Navigate to="/home" /> : <Login />}
+				/>
+				<Route path="/register" element={<Register />} />
+				<Route path="/login" element={<Login />} />
+				{/* Home Page */}
+				<Route path="/home" element={<HomePage />} />
 
-					{/* Task List Page */}
-					<Route path="/tasks" element={<TaskList />} />
-				</Routes>
+				{/* Task List Page */}
+				<Route path="/tasks" element={<TaskList />} />
+			</Routes>
 		</Router>
 	);
 };
